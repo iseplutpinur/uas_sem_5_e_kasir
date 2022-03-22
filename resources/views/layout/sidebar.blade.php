@@ -6,7 +6,7 @@
                 <span class="fas fa-user-circle"></span>
             </h6>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">
                     {{ Auth::user()->name }}
                 </a>
             </li>
@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {{ Request::is('product', 'product/*') ? 'active' : '' }}" href="{{ route('product') }}">
                     <span class="fas fa-box"></span>
                     Produk
                 </a>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user', 'index')->name('user');
         Route::get('/user/create', 'create')->name('user.create');
         Route::post('/user/create', 'store');
+        Route::get('/user/edit/{id}', 'edit')->name('user.edit');
+        Route::post('/user/update', 'update')->name('user.update');
+        Route::delete('/user/delete/{id}', 'delete')->name('user.delete');
+    });
+
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/product', 'index')->name('product');
+        Route::get('/product/create', 'create')->name('product.create');
+        Route::post('/product/create', 'store');
     });
 });
