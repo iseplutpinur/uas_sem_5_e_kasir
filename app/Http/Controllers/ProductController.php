@@ -45,4 +45,45 @@ class ProductController extends Controller
         Product::create($validated);
         return response()->json(['alert' => 'Data berhasil disimpan!'], 200);
     }
+
+    public function edit($id)
+    {
+        return view('product.edit', [
+            'title' => 'Edit Produk',
+            'product' => Product::findOrFail($id)
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'price' => ['required', 'numeric'],
+            'name' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
+        ], [
+            'price.required' => 'Harga tidak boleh kosong.',
+            'price.numeric' => 'Harga harus berupa angka.',
+            'name.required' => 'Nama tidak boleh kosong.',
+            'image.image' => 'File yang diupload harus berupa gambar.',
+            'image.file' => 'File yang diupload harus berupa gambar.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
+        ]);
+        if ($request->file('image')) {
+            $fileName = 'e-kasir-' . time() . '.' . $request->file('image')->extension();
+            Storage::putFileAs('products', $request->file('image'), $fileName);
+            Storage::delete('products/' . $request->oldImage);
+            $validated['image'] = $fileName;
+        }
+        Product::find($request->id)->update($validated);
+        return response()->json(['alert' => 'Data berhasil diubah!'], 200);
+    }
+
+    public function delete($id)
+    {
+        if (Product::find($id)->image) {
+            Storage::delete('products/' . Product::find($id)->image);
+        }
+        Product::destroy($id);
+        return response()->json(['alert' => 'Data berhasil dihapus!'], 200);
+    }
 }

@@ -38,12 +38,18 @@
                     Produk
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span class="fas fa-cash-register"></span>
+                    Transaksi
+                </a>
+            </li>
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                 <span>Kasir</span>
                 <span class="fas fa-ellipsis-vertical"></span>
             </h6>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {{ Request::is('cashier', 'cashier/*') ? 'active' : '' }}" href="{{ route('cashier') }}">
                     <span class="fas fa-cash-register"></span>
                     Kasir
                 </a>

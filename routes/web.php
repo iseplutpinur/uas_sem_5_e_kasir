@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -46,5 +47,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/product', 'index')->name('product');
         Route::get('/product/create', 'create')->name('product.create');
         Route::post('/product/create', 'store');
+        Route::get('/product/edit/{id}', 'edit')->name('product.edit');
+        Route::post('/product/update', 'update')->name('product.update');
+        Route::delete('/product/delete/{id}', 'delete')->name('product.delete');
+    });
+
+    Route::controller(CashierController::class)->group(function () {
+        Route::get('/cashier', 'index')->name('cashier');
+        Route::post('/cashier/create', 'store')->name('cashier.create');
     });
 });

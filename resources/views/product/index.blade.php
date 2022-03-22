@@ -24,11 +24,17 @@
                 @foreach ($products as $product)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $product->image }}</td>
+                        <td>
+                            @if ($product->image)
+                                <img src="{{ asset('img/products/' . $product->image) }}" alt="Product Image" class="border" style="object-fit: cover; max-width: 80px; width: 100%">
+                            @else
+                                <img src="{{ asset('img/default.png') }}" alt="Product Image" class="border" style="object-fit: cover; max-width: 80px; width: 100%">
+                            @endif
+                        </td>
                         <td>{{ $product->name }}</td>
                         <td>Rp {{ number_format($product->price) }}</td>
                         <td>
-                            <a href="{{ route('user.edit', ['id' => $product->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
+                            <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
                             <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="{{ $product->id }}"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
@@ -49,7 +55,7 @@
                 }).then((res) => {
                     if (res.isConfirmed) {
                         let id = $(this).data('id');
-                        let url = '{{ route('user.delete', ':id') }}';
+                        let url = '{{ route('product.delete', ':id') }}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,
