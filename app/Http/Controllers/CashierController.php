@@ -56,7 +56,7 @@ class CashierController extends Controller
     public function pay($id, Request $request)
     {
         Transaction::find($id)->update([
-            'pay' => $request->amount
+            'pay' => $request->pay
         ]);
         return response()->json([], 200);
     }

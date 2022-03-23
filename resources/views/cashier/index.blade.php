@@ -69,32 +69,32 @@
                     success: function(res) {
                         Swal.fire({
                             title: 'Rp ' + res.totalFormat,
-                            input: 'text',
-                            preConfirm: (value) => {
-                                Swal.fire({
-                                    title: 'Kembalian',
-                                    text: 'Rp ' + (value - res.total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                                }).then(function(amount) {
-                                    let id = res.id;
-                                    let url = '{{ route('cashier.pay', ':id') }}';
-                                    url = url.replace(':id', id);
-                                    $.ajax({
-                                        url: url,
-                                        method: "POST",
-                                        data: {
-                                            _token: "{{ csrf_token() }}",
-                                            pay: amount
-                                        },
-                                        success: function(res) {
-                                            location.reload();
-                                        },
-                                        error: function(err) {
-                                            toastr.error("Pembayaran gagal, terjadi masalah pada server!");
-                                        }
-                                    })
-                                });
-                            }
-                        });
+                            input: 'text'
+                        }).then(function(result) {
+                            let amount = result.value;
+                            Swal.fire({
+                                title: 'Kembalian',
+                                text: 'Rp ' + (amount - res.total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            }).then(function() {
+                                let id = res.id;
+                                let url = '{{ route('cashier.pay', ':id') }}';
+                                url = url.replace(':id', id);
+                                $.ajax({
+                                    url: url,
+                                    method: "POST",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        pay: amount
+                                    },
+                                    success: function(res) {
+                                        location.reload();
+                                    },
+                                    error: function(err) {
+                                        toastr.error("Pembayaran gagal, terjadi masalah pada server!");
+                                    }
+                                })
+                            });
+                        })
                     },
                     error: function(err) {
                         $.each(err.responseJSON.errors, function(key, value) {
