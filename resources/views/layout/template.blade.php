@@ -40,6 +40,25 @@
         $(document).ready(function() {
             $('#data-table').DataTable();
         });
+
+        $('.btn-logout').click(function() {
+            Swal.fire({
+                title: 'Yakin untuk logout?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak'
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Logout berhasil!'
+                    }).then(function() {
+                        window.location.replace('{{ route('logout') }}');
+                    })
+                }
+            })
+        });
     </script>
 </body>
 

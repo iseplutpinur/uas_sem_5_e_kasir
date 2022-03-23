@@ -41,9 +41,9 @@
             </div>
         @endforeach
         <div class="mt-5">
-            <h5>Total Belanja <span class="float-end">Rp 0</span></h5>
-            <h5>Tunai <span class="float-end">Rp 0</span></h5>
-            <h5>Kembali <span class="float-end">Rp 0</span></h5>
+            <h5>Total Belanja <span class="float-end">Rp {{ number_format($transaction->total) }}</span></h5>
+            <h5>Tunai <span class="float-end">Rp {{ number_format($transaction->pay) }}</span></h5>
+            <h5>Kembali <span class="float-end">Rp {{ number_format($transaction->pay - $transaction->total) }}</span></h5>
         </div>
         <div class="mt-5 text-center">
             <h5>Terima Kasih</h5>

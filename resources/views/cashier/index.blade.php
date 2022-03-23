@@ -108,7 +108,7 @@
             });
 
             $('.btn-product').click(function() {
-                var html = '<div class="input-group mb-1"><input type="hidden" class="form-control" name="product_id[]" value="' + $(this).data('id') + '"><input type="text" class="form-control" value="' + $(this).data('name') + '" disabled><input type="number" class="form-control" name="quantity[]" value="1"><button type="button" class="btn btn-danger btn-remove">HAPUS</button></div>';
+                var html = '<div class="input-group mb-1"><input type="hidden" class="form-control" name="product_id[]" value="' + $(this).data('id') + '"><input type="text" class="form-control" value="' + $(this).data('name') + '" disabled><input type="number" class="form-control" name="quantity[]" value="1"><button type="button" class="btn btn-danger btn-remove"><i class="fas fa-xmark"></i></button></div>';
                 $('#form-input').append(html);
             });
 

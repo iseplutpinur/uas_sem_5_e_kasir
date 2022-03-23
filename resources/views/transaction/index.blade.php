@@ -25,9 +25,9 @@
                                                 <p class="m-0">Kasir: {{ $transaction->user->name }}</p>
                                             </div>
                                             <div class="col">
-                                                <p class="m-0">Total: Rp 0</p>
-                                                <p class="m-0">Bayar: Rp 0</p>
-                                                <p class="m-0">Kembalian: Rp 0</p>
+                                                <p class="m-0">Total: Rp {{ number_format($transaction->total) }}</p>
+                                                <p class="m-0">Bayar: Rp {{ number_format($transaction->pay) }}</p>
+                                                <p class="m-0">Kembalian: Rp {{ number_format($transaction->pay - $transaction->total) }}</p>
                                             </div>
                                         </div>
                                     </div>

@@ -191,10 +191,9 @@
     left: 0;
     box-sizing: border-box;
     grid-template-areas: "top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";
-    grid-template-rows: minmax(-webkit-min-content, auto) minmax(
-            -webkit-min-content,
-            auto
-        ) minmax(-webkit-min-content, auto);
+    grid-template-rows:
+        minmax(-webkit-min-content, auto) minmax(-webkit-min-content, auto)
+        minmax(-webkit-min-content, auto);
     grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(
             min-content,
             auto
@@ -372,12 +371,12 @@
     border: 0;
     border-radius: 0.25em;
     background: initial;
-    background-color: #7367f0;
+    background-color: #39a0e1;
     color: #fff;
     font-size: 1em;
 }
 .swal2-styled.swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgba(115, 103, 240, 0.5);
+    box-shadow: 0 0 0 3px rgba(38, 148, 216, 0.5);
 }
 .swal2-styled.swal2-deny {
     border: 0;
