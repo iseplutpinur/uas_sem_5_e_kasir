@@ -30,6 +30,15 @@
                             <label for="image">Gambar</label>
                             <input type="file" class="form-control" name="image" id="image">
                         </div>
+                        <div class="mb-2">
+                            <label for="category_id">Kategori</label>
+                            <select class="form-select" name="category_id" id="category_id">
+                                <option value="">Pilih kategori</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class=" mb-2">
                             <label for="name">Nama</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{ $product->name }}">

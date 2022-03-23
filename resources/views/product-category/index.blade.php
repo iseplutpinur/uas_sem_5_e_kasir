@@ -2,10 +2,10 @@
 @section('title', $title)
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>Produk</h2>
+        <h2>Kategori Produk</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('product.create') }}" class="btn btn-sm btn-success"><i class="fas fa-sm fa-plus"></i> Tambah</a>
+                <a href="{{ route('product-category.create') }}" class="btn btn-sm btn-success"><i class="fas fa-sm fa-plus"></i> Tambah</a>
             </div>
         </div>
     </div>
@@ -14,30 +14,18 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Gambar</th>
-                    <th>Kategori</th>
                     <th>Nama</th>
-                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @foreach ($categories as $category)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $category->name }}</td>
                         <td>
-                            @if ($product->image)
-                                <img src="{{ asset('img/products/' . $product->image) }}" alt="Product Image" class="border" style="object-fit: cover; max-width: 80px; width: 100%">
-                            @else
-                                <img src="{{ asset('img/default.png') }}" alt="Product Image" class="border" style="object-fit: cover; max-width: 80px; width: 100%">
-                            @endif
-                        </td>
-                        <td>{{ $product->category->name }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>Rp {{ number_format($product->price) }}</td>
-                        <td>
-                            <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
-                            <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="{{ $product->id }}"><i class="fas fa-trash"></i></button>
+                            <a href="{{ route('product-category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
+                            <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="{{ $category->id }}"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -57,7 +45,7 @@
                 }).then((res) => {
                     if (res.isConfirmed) {
                         let id = $(this).data('id');
-                        let url = '{{ route('product.delete', ':id') }}';
+                        let url = '{{ route('product-category.delete', ':id') }}';
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url,

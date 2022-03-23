@@ -33,13 +33,19 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('product-category', 'product-category/*') ? 'active' : '' }}" href="{{ route('product-category') }}">
+                    <span class="fas fa-boxes"></span>
+                    Kategori Produk
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('product', 'product/*') ? 'active' : '' }}" href="{{ route('product') }}">
                     <span class="fas fa-box"></span>
                     Produk
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {{ Request::is('transaction', 'transaction/*') ? 'active' : '' }}" href="{{ route('transaction') }}">
                     <span class="fas fa-cash-register"></span>
                     Transaksi
                 </a>

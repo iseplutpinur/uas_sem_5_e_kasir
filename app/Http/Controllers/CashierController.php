@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CashierController extends Controller
 {
@@ -13,7 +15,8 @@ class CashierController extends Controller
     {
         return view('cashier.index', [
             'title' => 'Kasir',
-            'products' => Product::all()
+            'products' => Product::all(),
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -28,6 +31,8 @@ class CashierController extends Controller
         ]);
 
         $transaction_id = Transaction::create([
+            'user_id' => Auth::user()->id,
+            'number' => 'INV-' . time(),
             'time' => now()
         ])->id;
         foreach ($request->product_id as $key => $value) {
@@ -42,6 +47,17 @@ class CashierController extends Controller
         foreach ($transactionDetails as $item) {
             $totalPrice += $item->product->price * $item->quantity;
         }
-        return response()->json(['total' => $totalPrice, 'totalFormat' => number_format($totalPrice)], 200);
+        Transaction::find($transaction_id)->update([
+            'total' => $totalPrice
+        ]);
+        return response()->json(['total' => $totalPrice, 'totalFormat' => number_format($totalPrice), 'id' => $transaction_id], 200);
+    }
+
+    public function pay($id, Request $request)
+    {
+        Transaction::find($id)->update([
+            'pay' => $request->amount
+        ]);
+        return response()->json([], 200);
     }
 }

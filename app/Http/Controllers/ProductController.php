@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +20,8 @@ class ProductController extends Controller
     public function create()
     {
         return view('product.create', [
-            'title' => 'Tambah Produk'
+            'title' => 'Tambah Produk',
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -28,11 +30,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'price' => ['required', 'numeric'],
             'name' => ['required'],
+            'category_id' => ['required'],
             'image' => ['image', 'file', 'max:2048'],
         ], [
             'price.required' => 'Harga tidak boleh kosong.',
             'price.numeric' => 'Harga harus berupa angka.',
             'name.required' => 'Nama tidak boleh kosong.',
+            'category_id.required' => 'Kategori tidak boleh kosong.',
             'image.image' => 'File yang diupload harus berupa gambar.',
             'image.file' => 'File yang diupload harus berupa gambar.',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
@@ -50,7 +54,8 @@ class ProductController extends Controller
     {
         return view('product.edit', [
             'title' => 'Edit Produk',
-            'product' => Product::findOrFail($id)
+            'product' => Product::findOrFail($id),
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -59,11 +64,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'price' => ['required', 'numeric'],
             'name' => ['required'],
+            'category_id' => ['required'],
             'image' => ['image', 'file', 'max:2048'],
         ], [
             'price.required' => 'Harga tidak boleh kosong.',
             'price.numeric' => 'Harga harus berupa angka.',
             'name.required' => 'Nama tidak boleh kosong.',
+            'category_id.required' => 'Kategori tidak boleh kosong.',
             'image.image' => 'File yang diupload harus berupa gambar.',
             'image.file' => 'File yang diupload harus berupa gambar.',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'

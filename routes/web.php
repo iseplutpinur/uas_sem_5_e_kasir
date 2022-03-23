@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/user/delete/{id}', 'delete')->name('user.delete');
     });
 
+    Route::controller(ProductCategoryController::class)->group(function () {
+        Route::get('/product-category', 'index')->name('product-category');
+        Route::get('/product-category/create', 'create')->name('product-category.create');
+        Route::post('/product-category/create', 'store');
+        Route::get('/product-category/edit/{id}', 'edit')->name('product-category.edit');
+        Route::post('/product-category/update', 'update')->name('product-category.update');
+        Route::delete('/product-category/delete/{id}', 'delete')->name('product-category.delete');
+    });
+
     Route::controller(ProductController::class)->group(function () {
         Route::get('/product', 'index')->name('product');
         Route::get('/product/create', 'create')->name('product.create');
@@ -52,8 +63,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/product/delete/{id}', 'delete')->name('product.delete');
     });
 
+    Route::controller(TransactionController::class)->group(function () {
+        Route::get('/transaction', 'index')->name('transaction');
+        Route::get('/transaction/{id}', 'detail')->name('transaction.detail');
+    });
+
     Route::controller(CashierController::class)->group(function () {
         Route::get('/cashier', 'index')->name('cashier');
         Route::post('/cashier/create', 'store')->name('cashier.create');
+        Route::post('/cashier/pay/{id}', 'pay')->name('cashier.pay');
     });
 });
